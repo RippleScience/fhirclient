@@ -4,6 +4,7 @@
 const BrowserAdapter_1 = require("../adapters/BrowserAdapter");
 
 const adapter = new BrowserAdapter_1.default();
+const isBrowser = typeof window !== "undefined";
 const {
   ready,
   authorize,
@@ -23,7 +24,7 @@ if (typeof FHIRCLIENT_PURE == "undefined") {
 
   require("abortcontroller-polyfill/dist/abortcontroller-polyfill-only");
 
-  if (typeof window !== 'undefined' && !window.fetch) {
+  if (isBrowser && !window.fetch) {
     window.fetch = fetch.default;
     window.Headers = fetch.Headers;
     window.Request = fetch.Request;
@@ -33,7 +34,7 @@ if (typeof FHIRCLIENT_PURE == "undefined") {
 
 
 const FHIR = {
-  AbortController: window.AbortController,
+  AbortController: isBrowser ? window.AbortController : undefined,
   client,
   utils,
   oauth2: {

@@ -1299,6 +1299,7 @@ exports["default"] = BrowserAdapter;
 const BrowserAdapter_1 = __webpack_require__(/*! ../adapters/BrowserAdapter */ "./src/adapters/BrowserAdapter.ts");
 
 const adapter = new BrowserAdapter_1.default();
+const isBrowser = typeof window !== "undefined";
 const {
   ready,
   authorize,
@@ -1317,7 +1318,7 @@ if (false) {} // $lab:coverage:off$
 
 
 const FHIR = {
-  AbortController: window.AbortController,
+  AbortController: isBrowser ? window.AbortController : undefined,
   client,
   utils,
   oauth2: {

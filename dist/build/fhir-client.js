@@ -2735,6 +2735,7 @@ __webpack_require__(/*! core-js/modules/es.promise.js */ "./node_modules/core-js
 var BrowserAdapter_1 = __webpack_require__(/*! ../adapters/BrowserAdapter */ "./src/adapters/BrowserAdapter.ts");
 
 var adapter = new BrowserAdapter_1.default();
+var isBrowser = typeof window !== "undefined";
 
 var _adapter$getSmartApi = adapter.getSmartApi(),
     ready = _adapter$getSmartApi.ready,
@@ -2755,7 +2756,7 @@ if (typeof FHIRCLIENT_PURE == "undefined") {
 
   __webpack_require__(/*! abortcontroller-polyfill/dist/abortcontroller-polyfill-only */ "./node_modules/abortcontroller-polyfill/dist/abortcontroller-polyfill-only.js");
 
-  if (typeof window !== 'undefined' && !window.fetch) {
+  if (isBrowser && !window.fetch) {
     window.fetch = fetch.default;
     window.Headers = fetch.Headers;
     window.Request = fetch.Request;
@@ -2765,7 +2766,7 @@ if (typeof FHIRCLIENT_PURE == "undefined") {
 
 
 var FHIR = {
-  AbortController: window.AbortController,
+  AbortController: isBrowser ? window.AbortController : undefined,
   client: client,
   utils: utils,
   oauth2: {
