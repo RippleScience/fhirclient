@@ -23,7 +23,7 @@ if (typeof FHIRCLIENT_PURE == "undefined") {
 
   require("abortcontroller-polyfill/dist/abortcontroller-polyfill-only");
 
-  if (!window.fetch) {
+  if (typeof window !== 'undefined' && !window.fetch) {
     window.fetch = fetch.default;
     window.Headers = fetch.Headers;
     window.Request = fetch.Request;
