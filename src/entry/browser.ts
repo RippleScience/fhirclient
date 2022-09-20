@@ -20,7 +20,7 @@ const { ready, authorize, init, client, options, utils } = adapter.getSmartApi()
 if (typeof FHIRCLIENT_PURE == "undefined") {
     const fetch = require("cross-fetch");
     require("abortcontroller-polyfill/dist/abortcontroller-polyfill-only");
-    if (!window.fetch) {
+    if (typeof window !== 'undefined' && !window.fetch) {
         window.fetch    = fetch.default;
         window.Headers  = fetch.Headers;
         window.Request  = fetch.Request;
