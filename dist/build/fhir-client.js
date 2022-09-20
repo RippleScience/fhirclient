@@ -2755,7 +2755,7 @@ if (typeof FHIRCLIENT_PURE == "undefined") {
 
   __webpack_require__(/*! abortcontroller-polyfill/dist/abortcontroller-polyfill-only */ "./node_modules/abortcontroller-polyfill/dist/abortcontroller-polyfill-only.js");
 
-  if (!window.fetch) {
+  if (typeof window !== 'undefined' && !window.fetch) {
     window.fetch = fetch.default;
     window.Headers = fetch.Headers;
     window.Request = fetch.Request;
