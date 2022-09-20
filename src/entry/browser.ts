@@ -9,6 +9,7 @@ import Client from "../Client";
 import BrowserAdapter from "../adapters/BrowserAdapter";
 
 const adapter = new BrowserAdapter();
+const isBrowser = typeof window !== "undefined";
 const { ready, authorize, init, client, options, utils } = adapter.getSmartApi();
 
 // We have two kinds of browser builds - "pure" for new browsers and "legacy"
@@ -20,7 +21,7 @@ const { ready, authorize, init, client, options, utils } = adapter.getSmartApi()
 if (typeof FHIRCLIENT_PURE == "undefined") {
     const fetch = require("cross-fetch");
     require("abortcontroller-polyfill/dist/abortcontroller-polyfill-only");
-    if (typeof window !== 'undefined' && !window.fetch) {
+    if (isBrowser && !window.fetch) {
         window.fetch    = fetch.default;
         window.Headers  = fetch.Headers;
         window.Request  = fetch.Request;
@@ -30,7 +31,7 @@ if (typeof FHIRCLIENT_PURE == "undefined") {
 
 // $lab:coverage:off$
 const FHIR = {
-    AbortController: window.AbortController,
+    AbortController: isBrowser ? window.AbortController : undefined,
     client,
     utils,
     oauth2: {
